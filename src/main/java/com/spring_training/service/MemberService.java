@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import com.spring_training.domain.Member;
 import com.spring_training.repository.MemberRepository;
-import com.spring_training.repository.MemoryMemberRepository;
 
 public class MemberService {
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     public long signUp(Member member) {
         validateDuplicatedName(member);
