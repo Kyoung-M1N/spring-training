@@ -1,8 +1,10 @@
 package com.spring_training.controller;
 
+import java.util.List;
 import com.spring_training.domain.Member;
 import com.spring_training.service.MemberService;
 
+import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,13 +28,13 @@ public class MemberController {
 
     // controller가 MemberService에 의존하기 때문에 스프링 빈에 등록된 객체를 
     // 스프링 컨테이너에서 찾아 넣어준다.(의존성 주입)
-    @Autowired  
+    @Autowired  // 생성자가 하나인 경우 생략 가능
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
     @GetMapping(value = "/members/new")
-    // "/members/new"를 조회하기 위해 @GetMapping어노테이션 사용
+    // get요청으로 "/members/new"가 조회될 때 아래의 함수가 실행됨
     public String createForm() {
         return "members/createMemberForm";
     }
@@ -47,7 +49,14 @@ public class MemberController {
         member.setName(form.getName());
         memberService.signUp(member);
 
-        return "redirect:/";    // "/"의 경로로 복귀시킴
+        return "redirect:/"; // "/"의 경로로 복귀시킴
+    }
+    
+    @GetMapping(value = "/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 }
 /*
