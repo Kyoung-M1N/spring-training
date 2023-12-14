@@ -1,8 +1,11 @@
 package com.spring_training.controller;
 
+import com.spring_training.domain.Member;
 import com.spring_training.service.MemberService;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 // controller가 외부 요청을 받고, 응답을 리턴
@@ -26,6 +29,25 @@ public class MemberController {
     @Autowired  
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
+    }
+
+    @GetMapping(value = "/members/new")
+    // "/members/new"를 조회하기 위해 @GetMapping어노테이션 사용
+    public String createForm() {
+        return "members/createMemberForm";
+    }
+    
+    @PostMapping(value = "/members/new")
+    // post로 값을 받아오기 위해 @PostMapping어노테이션 사용
+    // "/members/new"라는 경로에서 post요청이 발생하면 아래의 함수가 호출됨
+    // 이때 MemberForm의 setName이 자동으로 호출되고 입력받은 name의 값이 전달됨
+    public String create(MemberForm form) {
+        Member member = new Member();
+
+        member.setName(form.getName());
+        memberService.signUp(member);
+
+        return "redirect:/";    // "/"의 경로로 복귀시킴
     }
 }
 /*
