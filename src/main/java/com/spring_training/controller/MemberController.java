@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 
 // controller가 외부 요청을 받고, 응답을 리턴
 // service에서 비즈니스 로직 구현
@@ -28,7 +28,7 @@ public class MemberController {
 
     // controller가 MemberService에 의존하기 때문에 스프링 빈에 등록된 객체를 
     // 스프링 컨테이너에서 찾아 넣어준다.(의존성 주입)
-    @Autowired  // 생성자가 하나인 경우 생략 가능
+    // @Autowired  // 생성자가 하나인 경우 생략 가능
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }

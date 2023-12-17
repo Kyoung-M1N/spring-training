@@ -1,9 +1,14 @@
 package com.spring_training;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.spring_training.service.MemberService;
+
+import jakarta.persistence.EntityManager;
+
+import com.spring_training.repository.JpaMemberRepository;
 import com.spring_training.repository.MemberRepository;
 import com.spring_training.repository.MemoryMemberRepository;
 
@@ -14,6 +19,13 @@ import com.spring_training.repository.MemoryMemberRepository;
  */
 @Configuration  // 자바 코드로 직접 스프링 빈 등록
 public class SpringConfig {
+    private EntityManager entityManager;
+
+    // @Autowired
+    public SpringConfig(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @Bean
     public MemberService memberService() {
         return new MemberService(memberRepository());
@@ -21,7 +33,9 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
+        // return new MemoryMemberRepository();
+        return new JpaMemberRepository(entityManager);
+        // EntityManager를 주입한다.
     }
 }
 
