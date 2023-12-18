@@ -1,42 +1,48 @@
 package com.spring_training;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.spring_training.service.MemberService;
-
 import jakarta.persistence.EntityManager;
 
-import com.spring_training.repository.JpaMemberRepository;
+import com.spring_training.service.MemberService;
 import com.spring_training.repository.MemberRepository;
-import com.spring_training.repository.MemoryMemberRepository;
+import com.spring_training.repository.JpaMemberRepository;
 
 /*
  * 스프링빈 등록 기능을 하는 클래스를 생성하고 @Configuration으로 스프링빈을 등록하는 클래스임을 선언
  * @Configuration과 @Bean을 통해 스프링빈으로 등록할 클래스의 생성자를 이용하여 스프링빈을 등록
  * 현재 코드에서 MemberRepository에 대한 구현클래스가 변경될 예정이므로 자바코드를 통해 스프링빈을 등록
  */
-@Configuration  // 자바 코드로 직접 스프링 빈 등록
+@Configuration // 자바 코드로 직접 스프링 빈 등록
 public class SpringConfig {
-    private EntityManager entityManager;
+    // SpringDataJpaMemberRepository가 MemberRepository를 상속받고 있으며 SpringDataJpa가 
+    // 자동으로 구현체를 만들어 스프링빈으로 등록하기 때문에 memberRepository인스턴스를 생성하고 의존성을 
+    // 주입할 수 있게 된다
+    private final MemberRepository memberRepository;
+    // private EntityManager entityManager;
 
-    // @Autowired
-    public SpringConfig(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    // // @Autowired
+    // public SpringConfig(EntityManager entityManager) {
+    //     this.entityManager = entityManager;
+    // }
+
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        // return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
-    @Bean
-    public MemberRepository memberRepository() {
+    // @Bean
+    // public MemberRepository memberRepository() {
         // return new MemoryMemberRepository();
-        return new JpaMemberRepository(entityManager);
+        // return new JpaMemberRepository(entityManager);
         // EntityManager를 주입한다.
-    }
+    // }
 }
 
 /*
