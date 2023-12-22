@@ -1,7 +1,9 @@
-package com.spring_training.repository;
+package com.spring_training.domain.member.repository;
 
-import com.spring_training.domain.Member;
 import java.util.Optional;
+
+import com.spring_training.domain.member.Member;
+
 import java.util.List;
 
 public interface MemberRepository {

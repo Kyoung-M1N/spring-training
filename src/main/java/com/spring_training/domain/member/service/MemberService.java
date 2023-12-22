@@ -1,12 +1,12 @@
-package com.spring_training.service;
+package com.spring_training.domain.member.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring_training.domain.Member;
-import com.spring_training.repository.MemberRepository;
+import com.spring_training.domain.member.Member;
+import com.spring_training.domain.member.repository.MemberRepository;
 
 @Transactional
 /*

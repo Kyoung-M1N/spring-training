@@ -1,8 +1,10 @@
-package com.spring_training.repository;
+package com.spring_training.domain.member.repository;
 
 import java.util.List;
 import java.util.Optional;
-import com.spring_training.domain.Member;
+
+import com.spring_training.domain.member.Member;
+
 import jakarta.persistence.EntityManager;
 
 public class JpaMemberRepository implements MemberRepository {

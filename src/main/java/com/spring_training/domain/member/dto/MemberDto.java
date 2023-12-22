@@ -1,6 +1,6 @@
-package com.spring_training.controller;
+package com.spring_training.domain.member.dto;
 
-public class MemberForm {
+public class MemberDto {
     private String name;
 
     public String getName() {

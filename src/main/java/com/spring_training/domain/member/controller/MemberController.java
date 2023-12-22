@@ -1,8 +1,10 @@
-package com.spring_training.controller;
+package com.spring_training.domain.member.controller;
 
 import java.util.List;
-import com.spring_training.domain.Member;
-import com.spring_training.service.MemberService;
+
+import com.spring_training.domain.member.Member;
+import com.spring_training.domain.member.dto.MemberDto;
+import com.spring_training.domain.member.service.MemberService;
 
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -43,7 +45,7 @@ public class MemberController {
     // post로 값을 받아오기 위해 @PostMapping어노테이션 사용
     // "/members/new"라는 경로에서 post요청이 발생하면 아래의 함수가 호출됨
     // 이때 MemberForm의 setName이 자동으로 호출되고 입력받은 name의 값이 전달됨
-    public String create(MemberForm form) {
+    public String create(MemberDto form) {
         Member member = new Member();
 
         member.setName(form.getName());

@@ -1,4 +1,4 @@
-package com.spring_training.domain;
+package com.spring_training.domain.member;
 
 // import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

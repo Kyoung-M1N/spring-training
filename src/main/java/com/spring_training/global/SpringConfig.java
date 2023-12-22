@@ -1,13 +1,10 @@
-package com.spring_training;
+package com.spring_training.global;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import jakarta.persistence.EntityManager;
-
-import com.spring_training.service.MemberService;
-import com.spring_training.repository.MemberRepository;
-import com.spring_training.repository.JpaMemberRepository;
+import com.spring_training.domain.member.repository.MemberRepository;
+import com.spring_training.domain.member.service.MemberService;
 
 /*
  * 스프링빈 등록 기능을 하는 클래스를 생성하고 @Configuration으로 스프링빈을 등록하는 클래스임을 선언

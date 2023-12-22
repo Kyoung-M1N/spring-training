@@ -1,4 +1,4 @@
-package com.spring_training.controller;
+package com.spring_training.global;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
