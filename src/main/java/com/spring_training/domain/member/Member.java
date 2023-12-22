@@ -21,6 +21,8 @@ public class Member {
     private long id;
     // @Column(name = "name")
     private String name;
+    private String email;
+    private String password;
 
     // Member(long id, String name) {
     //     this.id = id;
@@ -34,6 +36,7 @@ public class Member {
     public String getName() {
         return name;
     }
+    
 
     public void setId(long id) {
         this.id = id;
@@ -41,5 +44,21 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

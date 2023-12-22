@@ -49,6 +49,8 @@ public class MemberController {
         Member member = new Member();
 
         member.setName(form.getName());
+        member.setEmail(form.getEmail());
+        member.setPassword(form.getPassword());
         memberService.signUp(member);
 
         return "redirect:/"; // "/"의 경로로 복귀시킴
