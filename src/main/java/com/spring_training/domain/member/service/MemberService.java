@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring_training.domain.member.Member;
+import com.spring_training.domain.member.dto.MemberDto;
 import com.spring_training.domain.member.repository.MemberRepository;
 
 @Transactional
@@ -21,14 +22,19 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public long signUp(Member member) {
-        validateDuplicatedName(member);
-        memberRepository.save(member);
-        return member.getId();
+    public Member signUp(MemberDto memberDto) {
+        validateDuplicatedName(memberDto);
+        Member member = Member.builder()
+                .name(memberDto.getName())
+                .email(memberDto.getEmail())
+                .password(memberDto.getPassword())
+                .build();
+
+        return memberRepository.save(member);
     }
 
-    private void validateDuplicatedName(Member member) {
-        memberRepository.findByName(member.getName())
+    private void validateDuplicatedName(MemberDto memberDto) {
+        memberRepository.findByName(memberDto.getName())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 }); // 중복된 이름 방지

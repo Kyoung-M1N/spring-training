@@ -45,13 +45,8 @@ public class MemberController {
     // post로 값을 받아오기 위해 @PostMapping어노테이션 사용
     // "/members/new"라는 경로에서 post요청이 발생하면 아래의 함수가 호출됨
     // 이때 MemberForm의 setName이 자동으로 호출되고 입력받은 name의 값이 전달됨
-    public String create(MemberDto form) {
-        Member member = new Member();
-
-        member.setName(form.getName());
-        member.setEmail(form.getEmail());
-        member.setPassword(form.getPassword());
-        memberService.signUp(member);
+    public String create(MemberDto memberDto) {
+        memberService.signUp(memberDto);
 
         return "redirect:/"; // "/"의 경로로 복귀시킴
     }
