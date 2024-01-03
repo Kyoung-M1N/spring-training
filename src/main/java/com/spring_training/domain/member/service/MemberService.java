@@ -11,7 +11,7 @@ import com.spring_training.domain.member.repository.MemberRepository;
 
 @Transactional
 /*
- * @Transaction미은 특정 작업이 성공했을 경우에만 작업의 결과를 저장하도록 하는 어노테이션이다.
+ * @Transactional은 특정 작업이 성공했을 경우에만 작업의 결과를 저장하도록 하는 어노테이션이다.
  * 작업이 실패했을 경우에는 작업의 내용이 저장되지 않으며 작업이 실행되기 이전의 상태와 같도록 유지한다.
  * DB에 접근하여 데이터에 대한 작업을 수행할 경우에는 항상 transactional을 해야 한다.
  */
@@ -23,7 +23,7 @@ public class MemberService {
     }
 
     public Member signUp(MemberDto memberDto) {
-        validateDuplicatedName(memberDto);
+        validateDuplicatedEmail(memberDto);
         Member member = Member.builder()
                 .name(memberDto.getName())
                 .email(memberDto.getEmail())
@@ -33,18 +33,19 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    private void validateDuplicatedName(MemberDto memberDto) {
-        memberRepository.findByName(memberDto.getName())
+    private void validateDuplicatedEmail(MemberDto memberDto) {
+        memberRepository.findByEmail(memberDto.getEmail())
                 .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 회원입니다.");
-                }); // 중복된 이름 방지
+                    throw new IllegalStateException("이미 존재하는 이메일입니다.");
+                }); // 중복된 이메일 방지
     }
 
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
-    public Optional<Member> findOne(long id) {
-        return memberRepository.findById(id);
+    public Member findOne(MemberDto memberDto) {
+        Optional<Member> result = memberRepository.findByEmail(memberDto.getEmail());
+        return result.get();
     }
 }

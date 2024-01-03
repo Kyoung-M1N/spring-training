@@ -14,5 +14,5 @@ public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Lon
     @Override
     // JpaRepository에 기본적인 CRUD기능과 페이징 기능이 포함되어있기 때문에
     // findByName(), findByEmail()처럼 메서드 이름 만으로 기능을 제공한다.
-    Optional<Member> findByName(String name);
+    Optional<Member> findByEmail(String email);
 }

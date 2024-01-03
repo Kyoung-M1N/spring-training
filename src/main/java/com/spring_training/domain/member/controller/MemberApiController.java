@@ -27,4 +27,10 @@ public class MemberApiController {
     public ResponseEntity<Member> signup(@RequestBody MemberDto dto) {
         return ResponseEntity.ok(memberService.signUp(dto));
     }
+
+    @PostMapping("/login")
+    @ResponseBody
+    public ResponseEntity<Member> login(@RequestBody MemberDto dto) {
+        return ResponseEntity.ok(memberService.findOne(dto));
+    }
 }
