@@ -12,12 +12,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())   //csrf사용 안 함
+        http.csrf(csrf -> csrf.disable()) // csrf사용 안 함
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/**").permitAll());
-                        //localhost:8080의 모든 경로에 대한 접근 허용
+                        .requestMatchers("/", "/api/**").permitAll()
+                // .anyRequest().authenticated()
+                )
+                // .formLogin((customize -> customize.loginPage("/api/login")))
+                ;
+        // localhost:8080의 모든 경로에 대한 접근 허용
         return http.build();
-    } // SecurityFilterChain을 주어진 기능을 통해 코드로 설정
+    } // SecurityFilterChain으로 주어진 기능을 통해 코드로 설정
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

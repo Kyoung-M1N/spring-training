@@ -3,12 +3,15 @@ package com.spring_training.domain.member.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.spring_training.domain.member.Member;
 import com.spring_training.domain.member.dto.MemberDto;
 import com.spring_training.domain.member.repository.MemberRepository;
 
+@Service
 @Transactional
 /*
  * @Transactional은 특정 작업이 성공했을 경우에만 작업의 결과를 저장하도록 하는 어노테이션이다.
@@ -17,9 +20,11 @@ import com.spring_training.domain.member.repository.MemberRepository;
  */
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.memberRepository = memberRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public Member signUp(MemberDto memberDto) {
@@ -27,7 +32,7 @@ public class MemberService {
         Member member = Member.builder()
                 .name(memberDto.getName())
                 .email(memberDto.getEmail())
-                .password(memberDto.getPassword())
+                .password(bCryptPasswordEncoder.encode(memberDto.getPassword()))
                 .build();
 
         return memberRepository.save(member);
