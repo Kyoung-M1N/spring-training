@@ -14,6 +14,3 @@ public class MemberDto {
     private String email;
     private String password;
 }
-/*
- * /members/new에서 입력받은 이름을 MemberController로 전달하는 객체(DTO?)
- */

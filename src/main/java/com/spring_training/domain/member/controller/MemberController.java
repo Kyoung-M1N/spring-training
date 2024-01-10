@@ -7,10 +7,12 @@ import com.spring_training.domain.member.dto.MemberDto;
 import com.spring_training.domain.member.service.MemberService;
 
 import org.springframework.ui.Model;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 // controller가 외부 요청을 받고, 응답을 리턴
 // service에서 비즈니스 로직 구현
@@ -57,6 +59,13 @@ public class MemberController {
         model.addAttribute("members", members);
         return "members/memberList";
     }
+
+    @GetMapping(value = "/now")
+    @ResponseBody
+    public Member getMethodName(@AuthenticationPrincipal Member member) {
+        return member;
+    }
+    
 }
 /*
  * controller는 주로 service와 repository등에서 데이터를 가져와 view에 전송하는 역할을 한다.
